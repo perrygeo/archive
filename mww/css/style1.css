@@ -1,0 +1,165 @@
+.mwwPanarrowsOver { background-color: #dedcd4; padding:0px; margin:0px; }
+.mwwPanarrows     { background-color: #c5c4c0;  padding:0px; margin:0px;  }
+.mwwDisplay {
+  border-top:1px solid white;
+  border-left:1px solid white;
+  border-right:1px solid black;
+  border-bottom:1px solid black;
+  margin:3px; 
+}
+.mwwZoombar      {padding:4px; }
+.mwwLayers       { 
+  font-family:Verdana;  
+  font-size:8pt;
+  color:#004400; 
+  font: normal 10px/12px Arial,Helvetica,sans-serif;
+  /*text-transform: uppercase;*/
+}
+.mwwScalebox     { font-family:monospace; font-size:9pt; }
+.mwwCoordinates  { font-family:monospace; font-size:9pt; height:30px; }
+.mwwRefmap       { border:1px solid black; }
+.mwwCompass      { }
+.mwwScalebar     { border:1px solid #ffffff; margin:4px;}
+.mwwSearchtool   { }
+.mwwSearchtoolFrame { margin:2px; width:240px; height:350px; }
+.mwwMeasurement  { font-size:9pt; font-family:monospace; color:#786a47; }
+.mwwToolbar      { background-color: #d4d2c9; }
+.mwwQueryoutput  { border:1px dotted #ffffff; }
+.mwwLegend       { padding:1px; border:1px dotted #000000; }
+.mwwDigitizer    { font-family: Verdana; font-size:10pt; padding:5px; }
+.mwwResize       { text-decoration:none; color:#786a47; padding-left:5px; }
+.mwwTextButton {
+  text-decoration:none;
+  margin:5px;
+  padding:2px;
+  color:#534522
+}
+.mwwFormButton {
+   border-top:2px solid white;
+  border-left:2px solid white;
+  border-right:2px solid black;
+  border-bottom:2px solid black;
+  color:#000000;
+  background-color:#d4d2c9;
+}
+.mwwFormInput {
+  color:#222222;
+  background-color:#d4d2c9;
+}
+
+
+/*  CSS specific to this template */
+body { 
+	font: 			11px/1.3em Arial,Helvetica,sans-serif; 
+	text-align: 	center;
+	background: 	#dedccd;
+}
+
+p { 
+	text-align: 	justify;
+	color: 			#786A47;
+}
+
+#header
+{
+background-color: #5e99b3;
+text-align: left;
+visibility: visible;
+font-weight: bold;
+height:45px;
+  border-top:2px solid #dddddd;
+  border-left:2px solid #dddddd;
+  border-right:2px solid #a39572;
+/*margin: 		20px 0 0 30px;*/
+
+}
+
+.headerText {
+color: white;
+font: normal 20px/22px Arial,Helvetica,sans-serif;
+}
+
+#headerText {
+color: white;ormation, links etc would
+font: normal 20px/22px Arial,Helvetica,sans-serif;
+}
+
+#navbar
+{
+background-color: #cabd9b;
+letter-spacing:2px;
+text-align: right;
+margin-bottom: 2px;
+text-decoration:none;
+  border-left:2px solid #dddddd;
+  border-right:2px solid #a39572;
+  border-bottom:2px solid #a39572;
+/* height: 16px */
+}
+
+a { text-decoration:none;}
+
+.content {
+background-color:#e8e7e3;
+padding-bottom: 10px;
+}
+
+.leftcol
+{
+text-align: right;
+float: left
+}
+
+.midcol
+{
+padding:20px;
+padding-top:2px;
+float: left;
+}
+
+.rightcol
+{
+text-align:right;
+font-size: 10pt;
+line-height: 20px;
+float: right;
+}
+
+.tab {
+	font: normal 10px Arial,Helvetica,sans-serif;
+	text-transform: uppercase;
+	color: #574D33;
+        padding: 1px;      
+        margin: 3px;
+}
+
+.tabOver {
+	font: normal 10px Arial,Helvetica,sans-serif;
+	text-transform: uppercase;
+	color: #574D33;
+        background-color: #aea17f;
+        border: 1px #9e9270 solid;
+        margin: 3px;
+}
+
+.tabOn {
+	font: normal 10px Arial,Helvetica,sans-serif;
+	text-transform: uppercase;
+	color: #574D33;
+        border: 1px #9e9270 solid;
+        margin: 3px;
+}
+
+div#page {
+ width:240px;
+}
+
+.pageDiv {
+	font: normal 10px Arial,Helvetica,sans-serif;
+	color: #574D33;
+        
+}
+
+h5{
+  font: bold 12px Arial,Helvetica,sans-serif;
+}

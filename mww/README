@@ -1,0 +1,47 @@
+Mapserver Web Widgets
+An HTML Client Library to interface with UMN Mapserver
+
+MWW consists of three main pieces:
+    - mww.config.php -> this is where you'll set the appropriate paths and a few variables.
+                 *** For most applications, this is the only file you'll need to edit. ***
+    - mww.php -> this php/mapscript application reads the essential variables
+                 from the mapfile and outputs all the needed javascript
+    - mww.js -> this is the object-oriented javascript library upon which
+                you can build your web mapping client. It relies heavily on 
+                all sorts of other javascript libs (included in the mww/javascript directory)
+
+To load the mww library you need to create a php page, set the mapfile and include the mww.php file. This will create a javascript object called "mww". The web map widgets can be placed in your html like so:
+
+-----------------------------------------------
+<html>
+<?php
+$mapfile = '/path/to/mapfile.map';
+include('./mww/mww.php');
+?>
+<body>
+
+Layer List:
+<script>
+ mww.layers.draw();
+</script>
+
+Map:
+<script>
+ mww.display.draw();
+</script>
+
+Reference Map:
+<script>
+ mww.refmap.draw();
+</script>
+------------------------------------------------
+etc...
+
+There is an example php page at mww/templates/template1.php which gives an example of using most of the available widgets and the mww/templates/style1.css shows how the CSS classes for the widgets can be manipulated.
+
+To use the template, 
+ - copy these two files
+ - edit the $mapfile variable in template1.php
+ - edit the path to mww.php (if the relative location has changed)
+
+ 
