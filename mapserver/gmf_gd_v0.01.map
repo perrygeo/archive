@@ -1,0 +1,963 @@
+###########################
+###########################
+## Attempt at a "googlish" look and feel applied to the TLG data layer
+###########################
+
+###########################
+##  Road classifications
+###########################
+
+## Feature class codes (f_class) are generalized versions of the U.S. census bureau standards. Namely: 
+##    
+##   Interstates A10
+##   Interstate HOV lanes A15
+##   US highways A20 
+##   State highways A25
+##   County Roads A30
+##   City Streets A40
+##   Ramps and Loops A63
+##   Service Drives A64
+##   Private Roads A66
+##   Dormitory Walkways A71
+##   Restricted Access A98
+
+###########################
+## Scaling
+###########################
+
+## < 10000  = Bottom of the Stack for Google
+## 10000 - 15000 = local roads (A40) shrink
+## 15001 - 20000 = local roads (A40) shrink again and labels turn off
+##                 collectors and arterials (A30, A25 and A20) shrink
+## 20001 - 25000 = Local roads (A40) color overlay turn off.
+##                 
+
+
+MAP
+  NAME 'label_shields'
+  SIZE 800 650
+  STATUS ON
+  EXTENT 332000 -18000 678000 328000
+  UNITS FEET
+  FONTSET ./interstate.fonts
+  SYMBOLSET ./interstate.symbols
+  TRANSPARENT TRUE
+  IMAGECOLOR 239 235 231
+  IMAGETYPE PNG
+
+	LEGEND
+		STATUS ON
+		KEYSPACING 5 10
+		KEYSIZE 20 12
+		IMAGECOLOR 255 255 255
+		LABEL
+		  TYPE TRUETYPE
+                  FONT bluehigh
+                  COLOR 0 0 0
+                  OUTLINECOLOR 254 254 254
+                  SIZE 12
+		END
+		TRANSPARENT ON
+	END
+	
+  OUTPUTFORMAT
+    NAME 'AGGA'
+    DRIVER AGG/PNG
+    IMAGEMODE RGBA
+    #FORMATOPTION "TRANSPARENT=ON"
+    #TRANSPARENT ON
+  END
+  
+  OUTPUTFORMAT
+    NAME 'AGG_Q'
+    DRIVER AGG/PNG
+    IMAGEMODE RGBA
+    FORMATOPTION "QUANTIZE_FORCE=ON"
+    FORMATOPTION "QUANTIZE_DITHER=OFF"
+    FORMATOPTION "QUANTIZE_COLORS=255"
+  END
+
+  SYMBOL
+    NAME 'dashed'
+    TYPE ELLIPSE
+    POINTS 1 1 END
+    FILLED TRUE
+    STYLE 10 8 10 8 END
+  END
+
+  SYMBOL
+    NAME 'dotted'
+    TYPE ELLIPSE
+    POINTS 1 1 END
+    FILLED TRUE
+    STYLE 1 5 1 5 END
+  END
+
+  SYMBOL
+    NAME 'circle'
+    TYPE ELLIPSE
+    POINTS 1 1 END
+    FILLED TRUE
+  END
+
+  WEB
+     HEADER "tlg_header.xml"
+     FOOTER "tlg_footer.xml"
+  END
+  
+##############################
+## Text Labels
+##############################
+
+  LAYER
+    METADATA
+      "ows_title" "local_label"
+      "gml_include_items" "all"
+    END
+    NAME 'local_label'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    ##TILEINDEX 'tgr_interstates_line_idx'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    LABELITEM 'STREETALL'
+    CLASS
+      EXPRESSION 'A40' # Local Road
+      LABEL
+	TYPE TRUETYPE
+ 	FONT bluehigh
+	ANGLE FOLLOW
+        SIZE 9
+        BACKGROUNDCOLOR 255 255 254
+        COLOR 28 28 28
+        MINDISTANCE 250
+        MINFEATURESIZE 50
+        OFFSET 0 0
+        PARTIALS FALSE
+      END
+      MAXSCALE 10000
+    END
+    CLASS
+      EXPRESSION 'A30' # Local Road
+      LABEL
+	TYPE TRUETYPE
+ 	FONT action
+	ANGLE FOLLOW
+        SIZE 8
+        BACKGROUNDCOLOR 255 251 115  # Same as line work color
+        COLOR 0 0 0
+        MINDISTANCE 300
+        MINFEATURESIZE 10
+        OFFSET -1 0
+        PARTIALS FALSE
+      END
+      MAXSCALE 80000
+    END
+  END
+  
+##############################
+## Symbols (Shields, etc)
+##############################
+
+  LAYER
+    METADATA
+      "ows_title" "road_sym"
+      "gml_include_items" "all"
+    END
+     NAME 'road_sym'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE ANNOTATION
+    CLASSITEM 'F_CLASS'
+    LABELITEM 'HIGHWAY_NU'
+    TOLERANCE 1000
+    CLASS
+      EXPRESSION 'A10' # interstates
+      STYLE
+        SYMBOL 'interstate1_wide_back'
+        SIZE 22
+        COLOR 255 0 0
+      END
+      STYLE
+        SYMBOL 'interstate1_wide_front'
+        SIZE 22
+        COLOR 115 113 206
+        OUTLINECOLOR 254 254 254
+      END      
+      LABEL
+        TYPE TRUETYPE
+        FONT bluehigh
+        SIZE 12
+        COLOR 254 254 254
+        MINDISTANCE 200
+        MINFEATURESIZE 10
+        OFFSET 0 0
+        PARTIALS FALSE
+      END
+    END
+    
+    CLASS
+      EXPRESSION 'A20' # US Highway
+      STYLE
+        SYMBOL 'us_highway_back'
+        SIZE 23
+        COLOR 254 254 254
+      END
+      STYLE
+        SYMBOL 'us_highway_front'
+        SIZE 23
+        COLOR 0 0 0
+      END
+      LABEL
+        TYPE TRUETYPE
+        FONT bluehigh
+        SIZE 11
+        COLOR 0 0 0
+        MINDISTANCE 250
+        MINFEATURESIZE 15
+        OFFSET 0 -1
+        PARTIALS FALSE
+      END
+    END
+    
+    CLASS
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'mn_highway_back'
+        SIZE 23
+        COLOR 254 254 254
+      END
+      STYLE
+        SYMBOL 'mn_highway_front'
+        SIZE 23
+        COLOR 0 0 0
+      END
+      LABEL
+        TYPE TRUETYPE
+        FONT bluehigh
+        SIZE 11
+        COLOR 0 0 0
+        MINDISTANCE 250
+        MINFEATURESIZE 15
+        OFFSET 0 -1
+        PARTIALS FALSE
+      END
+    END
+    
+    CLASS
+      EXPRESSION 'A30' # State Highway
+      STYLE
+        SYMBOL 'state_highway_back'
+        SIZE 23
+        COLOR 254 254 254
+      END
+      STYLE
+        SYMBOL 'state_highway_front'
+        SIZE 23
+        COLOR 0 0 0
+      END
+      LABEL
+        TYPE TRUETYPE
+        FONT bluehigh
+        SIZE 11
+        COLOR 0 0 0
+        MINDISTANCE 250
+        MINFEATURESIZE 15
+        OFFSET 0 -1
+        PARTIALS FALSE
+      END
+    END
+  END
+
+  
+#######################
+####  Linework Section
+#######################
+####  Linework for background color shadow (gray) for all but Interstates (A10)
+#######################
+  
+  LAYER
+    METADATA
+      "ows_title" "shadow_comb_bg"
+      "gml_include_items" "all"
+    END
+     NAME 'shadow'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    CLASS
+      EXPRESSION 'A63' # Access Ramp
+      STYLE
+        SYMBOL 'circle'
+        SIZE 6
+        COLOR 175 175 175
+      END
+      MAXSCALE 400000
+    END
+    ###########################################
+    CLASS
+      EXPRESSION 'A40' # Local Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 14
+        COLOR 175 175 175
+      END
+      MAXSCALE 10000
+    END
+    CLASS
+      MINSCALE 10001
+      EXPRESSION 'A40' # Local Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 7
+        COLOR 175 175 175
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      EXPRESSION 'A40' # Local Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 3
+        COLOR 175 175 175
+      END
+      MAXSCALE 25000
+    END
+    CLASS
+      MINSCALE 25001
+      EXPRESSION 'A40' # Local Road, Gray only level, no colored overlay
+      STYLE
+        SYMBOL 'circle'
+        SIZE 3
+        COLOR 175 175 175
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      EXPRESSION 'A40' # Local Road, Gray only level, no colored overlay
+      STYLE
+        SYMBOL 'circle'
+        SIZE 1
+        COLOR 200 200 200
+      END
+      MAXSCALE 160000
+    END
+    
+    ##########################################
+    CLASS
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 14
+        COLOR 175 175 175
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 7
+        COLOR 175 175 175
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 4
+        COLOR 175 175 175
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 3
+        COLOR 175 175 175
+      END
+      MAXSCALE 400000
+    END
+    
+    CLASS
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 14
+        COLOR 175 175 175
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 7
+        COLOR 175 175 175
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 4
+        COLOR 175 175 175
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 3
+        COLOR 175 175 175
+      END
+      MAXSCALE 4000000
+    END
+    
+    CLASS
+      EXPRESSION 'A20' # US Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 14
+        COLOR 175 175 175
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      EXPRESSION 'A20' # US Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 7
+        COLOR 175 175 175
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      EXPRESSION 'A20' # US Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 4
+        COLOR 175 175 175
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      EXPRESSION 'A20' # US Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 3
+        COLOR 175 175 175
+      END
+      MAXSCALE 4000000
+    END
+    
+  END
+  
+###########################
+##  Linework for Access Ramp  A63
+###########################
+
+  LAYER
+    METADATA
+      "ows_title" "ramp_fg"
+      "gml_include_items" "all"
+    END
+     NAME 'ramp'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    CLASS
+      #NAME 'Access Ramp'
+      EXPRESSION 'A63' # Access Ramp
+      STYLE
+        SYMBOL 'circle'
+        SIZE 4
+        COLOR 239 211 66
+      END
+      MAXSCALE 400000
+    END
+  END
+  
+###########################
+##  Linework for Local Road  A40
+###########################
+  
+  LAYER
+    METADATA
+      "ows_title" "local_fg"
+      "gml_include_items" "all"
+    END
+    NAME 'local'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    CLASS
+      EXPRESSION 'A40' # Local, Rural Road
+      #NAME 'Local Roads'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 254 254 254
+      END
+      MAXSCALE 10000
+    END
+    CLASS
+      MINSCALE 10001
+      EXPRESSION 'A40' # Local, Rural Road
+      #NAME 'Local Roads'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 3
+        COLOR 254 254 254
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      EXPRESSION 'A40' # Local, Rural Road
+      #NAME 'Local Roads'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 1
+        COLOR 254 254 254
+      END
+      MAXSCALE 50000
+    END
+  END
+  
+###########################
+##  Linework for Secondary Road  A30
+###########################
+  
+  LAYER
+    METADATA
+      "ows_title" "secondary_fg"
+      "gml_include_items" "all"
+    END
+    NAME 'secondary'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    CLASS
+      #NAME 'County Road'
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 255 251 115
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      #NAME 'County Road'
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 5
+        COLOR 255 251 115
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      #NAME 'County Road'
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 2
+        COLOR 255 251 115
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      #NAME 'County Road'
+      EXPRESSION 'A30' # Secondary Connecting Road
+      STYLE
+        SYMBOL 'circle'
+        SIZE 1
+        COLOR 255 251 115
+      END
+      MAXSCALE 400000
+    END
+  END
+
+###########################
+##  Linework for Minnesota Highway  A25
+###########################
+  
+  LAYER
+    METADATA
+      "ows_title" "mn_highway_fg"
+      "gml_include_items" "all"
+    END
+    NAME 'mnhighway'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    CLASS
+      #NAME 'MN Highway'
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 255 251 115
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      #NAME 'MN Highway'
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 5
+        COLOR 255 251 115
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      #NAME 'MN Highway'
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 2
+        COLOR 255 251 115
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      #NAME 'MN Highway'
+      EXPRESSION 'A25' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 1
+        COLOR 255 251 115
+      END
+      MAXSCALE 4000000
+    END
+    
+  END
+  
+###########################
+##  Linework for US Highways  A20
+###########################
+  
+  LAYER
+    METADATA 
+      "ows_title" "us_highway_fg" 
+      "gml_include_items" "all" 
+    END
+    NAME 'ushighway'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASSITEM 'F_CLASS'
+    CLASS
+      EXPRESSION 'A20' # US Highway
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 10  
+        COLOR 255 251 115 
+      END
+      MAXSCALE 15000
+    END
+    CLASS
+      MINSCALE 15001
+      EXPRESSION 'A20' # US Highway
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 5 
+        COLOR 255 251 115 
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      #NAME 'MN Highway'
+      EXPRESSION 'A20' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 2
+        COLOR 255 251 115
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      #NAME 'MN Highway'
+      EXPRESSION 'A20' # MN Highway
+      STYLE
+        SYMBOL 'circle'
+        SIZE 1
+        COLOR 255 251 115
+      END
+    END
+    
+  END
+  
+###########################
+##  Linework for US Interstates  A10
+###########################
+  
+  LAYER
+    METADATA 
+      "ows_title" "interstate_fg_bg" 
+      "gml_include_items" "all" 
+    END
+    NAME 'interstate'
+    GROUP 'interstate_poly'
+    TILEINDEX 'TILEINDEX'
+    STATUS DEFAULT
+    TYPE LINE  
+    CLASSITEM 'F_CLASS'
+    CLASS
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 14  
+        COLOR 175 175 175 
+      END  ## BG
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 12  
+        COLOR 247 190 33  
+      END
+      MAXSCALE 20000
+    END
+    CLASS
+      MINSCALE 20001
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 12  
+        COLOR 175 175 175 
+      END  ## BG
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 10 
+        COLOR 247 190 33  
+      END
+      MAXSCALE 25000
+    END
+    CLASS
+      MINSCALE 25001
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 10  
+        COLOR 175 175 175 
+      END  ## BG
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 8
+        COLOR 247 190 33  
+      END
+      MAXSCALE 50000
+    END
+    CLASS
+      MINSCALE 50001
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 7  
+        COLOR 175 175 175 
+      END  ## BG
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 5
+        COLOR 247 190 33  
+      END
+      MAXSCALE 200000
+    END
+    CLASS
+      MINSCALE 200001
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 5  
+        COLOR 175 175 175 
+      END  ## BG
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 3
+        COLOR 247 190 33  
+      END
+      MAXSCALE 900000
+    END
+    CLASS
+      MINSCALE 900001
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 4  
+        COLOR 175 175 175 
+      END  ## BG
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 2
+        COLOR 247 190 33  
+      END
+      MAXSCALE 4000000
+    END
+    CLASS
+      MINSCALE 4000001
+      #NAME 'US Interstate'  ## Using Interstate Shield Symbol Instead
+      EXPRESSION 'A10' # interstates
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 2
+        COLOR 247 190 33  
+      END
+    END
+   
+  END
+
+########################
+##  Legend Chips - This section used exclusively for Legend Generation
+##                 Basically these are duplicates of the Style entries
+##                 for the separate layer
+########################
+  
+  
+  LAYER
+    NAME 'legend_chips'
+    GROUP 'interstate_poly'
+    STATUS DEFAULT
+    TYPE LINE
+    CLASS
+      NAME 'Access Ramp'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 4
+        COLOR 175 175 175
+      END
+      STYLE
+        SYMBOL 'circle'
+        SIZE 2
+        COLOR 239 211 66
+      END
+    END
+    CLASS
+      NAME 'US Highway'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 175 175 175
+      END
+      STYLE  
+        SYMBOL 'circle'  
+        SIZE 8  
+        COLOR 255 251 115 
+      END
+    END
+    CLASS
+      NAME 'MN Highway'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 175 175 175
+      END
+      STYLE
+        SYMBOL 'circle'
+        SIZE 8
+        COLOR 255 251 115
+      END
+    END
+    CLASS
+      NAME 'Secondary Road'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 175 175 175
+      END
+      STYLE
+        SYMBOL 'circle'
+        SIZE 8
+        COLOR 255 251 115
+      END
+    END
+    CLASS
+      NAME 'Local Roads'
+      STYLE
+        SYMBOL 'circle'
+        SIZE 10
+        COLOR 175 175 175
+      END
+      STYLE
+        SYMBOL 'circle'
+        SIZE 8
+        COLOR 254 254 254
+      END
+    END
+  END
+    
+  LAYER
+    NAME 'legend_chips'
+    GROUP 'interstate_poly'
+    STATUS DEFAULT
+    TYPE ANNOTATION
+    CLASS
+      NAME 'US Interstate'
+      STYLE
+        SYMBOL 'interstate1_wide_back'
+        SIZE 16
+        COLOR 255 0 0
+      END
+      STYLE
+        SYMBOL 'interstate1_wide_front'
+        SIZE 16
+        COLOR 115 113 206
+        OUTLINECOLOR 254 254 254
+      END      
+      LABEL
+        TYPE TRUETYPE
+        FONT bluehigh
+        SIZE 5
+        COLOR 254 254 254
+        MINDISTANCE 200
+        MINFEATURESIZE 10
+        OFFSET 0 0
+        PARTIALS FALSE
+      END
+    END
+  END
+    
+END ## end Map

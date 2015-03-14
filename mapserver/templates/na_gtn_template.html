@@ -1,0 +1,81 @@
+<html>
+<head>
+ <link rel="stylesheet" href="/style1.css" type="text/css">
+ <style>
+  th{font-size:9pt; padding-left:5px; padding-right:5px;background-color:#cccccc; border:1px #dddddd solid}
+  td{text-align:center; padding:4px; font-size:8pt; border:1px #cccccc solid;} 
+
+ </style>
+ <script>
+   function addCommas(nStr)
+   {
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+   }
+ </script>
+</head>
+<body>
+   <h4> [basin_nm] 
+<a target="new" href="/cgi-bin/basin_pdf.py?basinid=[basin_id]&name=[basin_nm]"><img src="/img/pdf.gif" style="border:none;padding-left:15px;"></a>
+</p>
+   </h4>
+  
+<table>
+ <tr>
+  <th> Total <br/> Pesticide </th>
+  <th> Total <br/> Fertilizer </th>
+  <th> Average <br/> Elevation </th>
+  <th> Percent <br/> Glaciation </th>
+  <th> Modelled <br/> Sediment Load </th>
+  <th> Observed <br/> Sediment Load </th> 
+ </tr>
+ <tr>
+  <td>
+   <script> 
+    var x=[avg_pestc]*[pix_pestc];
+    document.write( addCommas( Math.round(x) + " tons" ) );
+   </script>
+  </td>
+  <td>
+   <script> 
+    var fert=[sum_fertc];
+    document.write( addCommas( Math.round(fert) + " tons" ) );
+   </script>
+  </td>
+  <td>
+   <script> 
+    var x=[avg_srtm];
+    document.write( addCommas( Math.round(x) + " meters" ) );
+   </script>
+  </td>
+  <td>
+   <script> 
+    var x=[avg_glac];
+    document.write( addCommas( Math.round(x*10000)/10000 + " %" ) );
+   </script>
+  </td>
+  <td>
+   <script> 
+    var x=[sum_rusle];
+    document.write( addCommas( Math.round(x) + " tons" ) );
+   </script>
+  </td>
+  <td>
+   <script> 
+    var x=[sediment];
+    document.write( addCommas( Math.round(x) + " tons" ) );
+   </script>
+  </td>
+ </tr>
+</table>
+
+
+</body>
+</html>  

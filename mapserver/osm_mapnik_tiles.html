@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <style type="text/css">
+#map {
+        width: 100%;
+        height: 100%;
+        border: 0px;
+        padding: 0px;
+        position: absolute;
+     }
+body {
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+     }
+    </style>
+    <script src="http://openlayers.org/api/2.5-rc3/OpenLayers.js"></script>
+    <script type="text/javascript">
+        <!--
+        var map;
+
+        function init(){
+            map = new OpenLayers.Map('map',
+                    { maxExtent: new OpenLayers.Bounds(-20037508,-20037508,20037508,20037508),
+                      numZoomLevels: 18,
+                      maxResolution: 156543,
+                      units: 'm',
+                      projection: "EPSG:41001" });
+
+            var layerMapnik = new OpenLayers.Layer.TMS( 
+                      "Mapnik (updated weekly)",
+                      "http://localhost/osm_tiles/",
+                      {type:'png', getURL: get_osm_url} );
+
+            map.addLayers([layerMapnik]);
+
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+
+            map.setCenter(lonLatToMercator(new OpenLayers.LonLat(-119.8,34.4)), 12);
+        }
+
+        function get_osm_url (bounds) {
+            var res = this.map.getResolution();
+            var x = Math.round ((bounds.left - this.maxExtent.left) / (res *
+            this.tileSize.w));
+            var y = Math.round ((this.maxExtent.top - bounds.top) / (res *
+            this.tileSize.h));
+            var z = this.map.getZoom();
+            var path = z + "/" + x + "/" + y + "." + this.type; 
+            var url = this.url;
+            if (url instanceof Array) {
+                url = this.selectUrl(path, url); }
+            return url + path;
+        }
+
+        function lonLatToMercator(ll) {
+           var lon = ll.lon * 20037508.34 / 180;
+           var lat = Math.log(Math.tan((90 + ll.lat) * Math.PI / 360)) / (Math.PI /
+           180);
+           lat = lat * 20037508.34 / 180;
+           return new OpenLayers.LonLat(lon, lat);
+        }
+        // -->
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="map"></div>
+    </form>
+  </body>
+</html>
+

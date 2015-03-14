@@ -1,0 +1,96 @@
+NAME LANDSAT 
+STATUS ON
+SIZE 600 400 
+EXTENT -2538370.000000 -4286909.997908 6305630.000000 3332089.997908
+IMAGECOLOR 255 255 255
+IMAGETYPE JPEG 
+IMAGEQUALITY 90
+
+SHAPEPATH "/opt/geodev/data/srtm"
+UNITS dd 
+PROJECTION
+  "proj=laea"
+  "lat_0=135.0"
+  "lon_0=-15.0"
+  "datum=WGS84"
+END
+
+FONTSET "/opt/geodev/mapserver/fonts/font.list"
+SYMBOLSET "/opt/geodev/mapserver/symbols/symbols.sym"
+
+WEB
+  IMAGEPATH "/var/www/tmp/"
+  IMAGEURL "/tmp/"  
+  MAXSCALE 2000000000
+  MINSCALE 0.001
+  METADATA
+    "wms_title" "Landsat"
+    "wms_onlineresource" "http://cabrillo.nceas.ucsb.edu:8080/cgi-bin/mapserv?map=/opt/geodev/mapserver/lansdat_laea.map"
+    "wms_srs" "EPSG:9999"
+  END
+  METADATA
+    "mwc_title" "North America"
+    "mwc_link"  "http://cabrillo.nceas.ucsb.edu:8080"
+    "mwc_bgcolor"   "#669999"
+    "mwc_textcolor" "#000000"
+    "mwc_linkcolor" "#000000"
+  END
+END
+
+SCALEBAR
+  IMAGECOLOR 255 255 255
+  COLOR 125 125 85 
+  OUTLINECOLOR 255 255 255
+  LABEL
+    OUTLINECOLOR 140 140 140
+    COLOR 0 0 0  
+    SIZE medium
+  END
+  STYLE 1
+  SIZE 188 6
+  UNITS MILES
+  INTERVALS 4
+  STATUS ON 
+  TRANSPARENT TRUE
+END
+
+REFERENCE
+  IMAGE 'refmaps/modis.jpg'
+  EXTENT -180 -90 180 90 
+  SIZE 250 125 
+  STATUS on
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END
+
+LEGEND
+  KEYSIZE 18 12
+  IMAGECOLOR 255 255 255
+  LABEL
+    TYPE BITMAP
+    SIZE MEDIUM
+    COLOR 0 0 0
+  END
+  STATUS ON
+END
+
+LAYER
+  NAME Landsat_WMS 
+   STATUS OFF 
+   #GROUP "WMS"
+   TYPE RASTER
+   CONNECTIONTYPE WMS
+   CONNECTION "http://wms.jpl.nasa.gov/wms.cgi?"
+   PROJECTION
+     "init=epsg:4326"
+   END
+  METADATA
+     "wms_name" "global_mosaic"
+     "wms_server_version" "1.1.1"
+     "wms_srs" "EPSG:4326"
+     "wms_style" "visual"
+     "wms_format" "image/png"
+ END
+END
+
+END

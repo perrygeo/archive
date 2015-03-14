@@ -1,0 +1,221 @@
+map
+  size 640 480
+  imagetype png8
+  imagecolor 225 225 225
+  shapepath "/dataroot/data"
+  fontset "/wwwroot/fonts.txt"
+  projection
+    "init=epsg:4326"
+  end
+  debug on
+  web
+    imagepath "/wwwroot/mstmp/"
+    imageurl "/tmp/"
+    metadata
+      wms_title "OpenStreetMap"
+      wms_srs "EPSG:4326"
+    end
+  end
+  outputformat
+    name "png256"
+    driver "GD/PNG"
+    imagemode "pc256"
+    extension "png"
+  end
+  outputformat
+    name "png"
+    driver "GD/PNG"
+    imagemode "rgba"
+    extension "png"
+    mimetype "image/png"
+    imagemode RGBA
+  end
+  outputformat
+    name "png8"
+    driver "GD/PNG"
+    imagemode "rgba"
+    extension "png"
+    mimetype "image/png"
+    imagemode RGBA
+    transparent OFF
+    formatoption "QUANTIZE_FORCE=ON"
+    formatoption "QUANTIZE_DITHER=ON"
+    formatoption "QUANTIZE_COLORS=250"
+  end
+  outputformat
+    name "jpg"
+    driver "GD/JPEG"
+    extension "jpg"
+    formatoption "QUALITY=85"
+  end
+  layer
+    name segments 
+    group roads
+    type line
+    projection
+      "init=epsg:4326"
+    end
+    transparency alpha
+    status on
+    data planet
+    labelitem "name"
+    classitem "highway"
+
+    # motorway 
+    class 
+      expression "motorway"  
+      style
+        color 0 0 0  
+        width 8 
+        antialias true
+      end
+      style
+        color 128 155 192 
+        width 6  
+        antialias true
+      end
+
+      label
+        type truetype
+        antialias true
+        font arialbd
+        size 8
+        position cc
+        color 255 255 255
+        outlinecolor 64 64 64
+        buffer 30
+        partials false
+      end
+    end  
+    class
+      expression "primary"
+      style
+        color 0 0 0  
+        width 6 
+        antialias true
+      end
+      style
+        color 127 201 127 
+        width 4 
+        antialias true
+      end
+      label
+        type truetype
+        antialias true
+        font arialbd
+        size 8
+        position cc
+	angle follow
+        color 255 255 255
+        outlinecolor 64 64 64
+        buffer 30
+        partials false
+      end
+    end
+
+    class
+    expression "secondary"
+    style
+        color 0 0 0
+        width 4
+        antialias true
+      end
+      style
+        color 253 191 111
+        width 2  
+        antialias true
+      end
+
+      label
+        type truetype
+        antialias true
+        font arialbd
+        size 8
+        position cc
+        color 255 255 255
+        outlinecolor 64 64 64
+        buffer 30
+        partials false
+      end
+    end
+  end
+  layer 
+    name default_segment
+    group roads
+    type line
+    dump true 
+    projection
+      "init=epsg:4326"
+    end
+    transparency alpha
+    status on
+    data planet
+    labelitem "name"
+    classitem "class"
+    class 
+     minscale 100000
+     maxscale 1000000
+     style
+        color 0 0 0
+        width 3 
+        antialias true
+      end
+      style
+        color 196 196 196
+        width 1 
+        antialias true
+      end
+    end
+    class
+     maxscale 50000
+     style
+        color 0 0 0
+        width 6 
+        antialias true
+      end
+      style
+        color 196 196 196
+        width 4 
+        antialias true
+      end
+     label
+        type truetype
+        antialias true
+        font arialbd
+        size 8
+        position auto
+     	angle follow 
+        color 255 255 255
+        outlinecolor 64 64 64
+        buffer 30
+        partials false
+      end
+    end
+
+    class   
+     maxscale 100000
+     minscale 50000
+     style
+        color 0 0 0
+        width 4
+        antialias true
+      end
+      style
+        color 196 196 196
+        width 2
+        antialias true
+      end
+      label
+        type truetype
+        antialias true
+        font arialbd
+        size 8
+        position cc
+        color 255 255 255
+        outlinecolor 64 64 64
+        buffer 30
+        partials false
+      end
+    end
+  end
+end

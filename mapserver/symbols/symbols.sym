@@ -1,0 +1,332 @@
+#
+# POINT MARKERS
+#
+
+SYMBOL
+NAME "point_circle"
+TYPE ellipse
+FILLED true
+POINTS
+1 1
+END
+END 
+
+SYMBOL
+NAME "point_tent"
+TYPE vector
+FILLED true 
+POINTS
+0 1
+.5 0
+1 1
+.75 1
+.5 .5
+.25 1
+0 1
+END
+END 
+
+SYMBOL
+NAME "point_star"
+TYPE vector
+POINTS
+0 0.375
+0.35 0.375
+0.5 0
+0.65 0.375
+1 0.375
+0.75 0.625
+0.875 1
+0.5 0.75
+0.125 1
+0.25 0.625
+0 0.375
+END
+FILLED true
+STYLE
+1 20 1 20
+END
+END
+
+SYMBOL
+NAME "point_triangle"
+TYPE vector
+FILLED true
+POINTS
+0 1
+.5 0
+1 1
+0 1
+END
+END 
+
+SYMBOL
+NAME "point_square"
+TYPE vector
+FILLED true
+POINTS
+0 1
+0 0
+1 0
+1 1
+0 1
+END
+END 
+
+SYMBOL
+NAME "point_x"
+TYPE truetype
+FONT "arialblack"
+ANTIALIAS true
+CHARACTER "&#88;"
+END
+
+SYMBOL
+NAME "point_cross"
+TYPE vector
+POINTS
+0 0.4
+0.4 0.4
+0.4 0
+0.6 0
+0.6 0.4
+1 0.4
+1 0.6
+0.6 0.6
+0.6 1
+0.4 1
+0.4 0.6
+0 0.6
+0 0.4
+END
+FILLED true
+END
+
+SYMBOL
+NAME "point_diamond"
+TYPE vector
+POINTS
+0 0.5
+0.5 0
+1 0.5
+0.5 1
+0 0.5
+END
+FILLED true
+END
+
+SYMBOL
+NAME "point_house"
+TYPE vector
+POINTS
+0 1
+0 0.5
+0.5 0
+1 0.5
+1 1
+0 1
+END
+FILLED true
+END
+
+SYMBOL
+NAME "point_hexagon"
+TYPE vector
+POINTS
+0 0.25
+0.5 0
+1 0.25
+1 0.75
+0.5 1
+0 0.75
+0 0.25
+END
+FILLED true
+END
+
+SYMBOL
+NAME "point_octagon"
+TYPE vector
+POINTS
+0.3 0
+0.7 0
+1 0.3
+1 0.7
+0.7 1
+0.3 1
+0 0.7
+0 0.3
+0.3 0
+END
+FILLED true
+END
+
+
+
+#
+# LINE TYPES
+#
+
+SYMBOL
+NAME "line_solid"
+TYPE ellipse
+POINTS
+1 1
+END
+FILLED true
+END
+
+SYMBOL
+NAME "line_dashes_long"
+TYPE ellipse
+POINTS
+1 1
+END
+STYLE
+20 10 20 10
+END
+END
+
+SYMBOL
+NAME "line_dashes_medium"
+TYPE ellipse
+POINTS
+1 1
+END
+STYLE
+10 5 10 5
+END
+END
+
+SYMBOL
+NAME "line_dashes_short"
+TYPE ellipse
+POINTS
+1 1
+END
+STYLE
+6 3 6 3
+END
+END
+
+SYMBOL
+NAME "line_dotted"
+TYPE ellipse
+POINTS
+1 1
+END
+STYLE
+1 3 1 3
+END
+FILLED true
+END
+
+SYMBOL
+NAME "line_dotted_spaced"
+TYPE ellipse
+POINTS
+1 1
+END
+STYLE
+1 7 1 7
+END
+FILLED true
+END
+
+SYMBOL
+NAME "line_dot_and_dash"
+TYPE ellipse
+POINTS
+1 1
+END
+STYLE
+10 5 1 5
+END
+FILLED true
+END
+
+
+#
+# POLYGON FILLS
+#
+
+SYMBOL
+NAME "polygon_solid"
+TYPE ellipse
+FILLED true
+POINTS
+0 0
+END
+END
+
+SYMBOL
+NAME "polygon_crosshatch_horizontal"
+TYPE vector
+POINTS
+0 1.5
+1.5 1.5
+END
+END
+
+SYMBOL
+NAME "polygon_crosshatch_vertical"
+TYPE vector
+POINTS
+1.5 0
+1.5 1.5
+END
+END
+
+SYMBOL
+NAME "polygon_crosshatch_rightslant"
+TYPE vector
+POINTS
+0 2.5
+2.5 0
+END
+END
+
+SYMBOL
+NAME "polygon_crosshatch_leftslant"
+TYPE vector
+POINTS
+2.5 2.5
+0 0
+END
+END
+
+SYMBOL
+NAME "polygon_grid"
+TYPE vector
+POINTS
+0 0
+0 2
+2 2
+END
+END
+
+SYMBOL
+NAME "polygon_grid_angled"
+TYPE vector
+POINTS
+0 0
+4 4
+-99 -99
+0 4
+4 0
+END
+END
+
+SYMBOL
+NAME "polygon_grid_inverted"
+TYPE vector
+POINTS
+0 0.5
+0.5 0
+1 0.5
+0.5 1
+0 0.5
+END
+FILLED true
+END
+

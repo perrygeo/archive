@@ -1,0 +1,142 @@
+NAME North_America 
+STATUS ON
+SIZE 430 430 
+#EXTENT 383377 4495191 415994 4533494
+EXTENT -4563511 -4234596 4176918 4773176
+IMAGECOLOR 255 255 255
+IMAGETYPE JPEG 
+IMAGEQUALITY 90
+OUTPUTFORMAT
+  NAME JPEG
+  DRIVER "GD/JPEG"
+  MIMETYPE "image/jpeg"
+  IMAGEMODE RGB
+  EXTENSION "jpg"
+END
+SHAPEPATH "/opt/geodev/data"
+UNITS meters
+PROJECTION
+  "proj=laea"
+  "lat_0=45"
+  "lon_0=-100"
+  "datum=WGS84"
+END
+
+FONTSET "/opt/geodev/mapserver/font.list"
+SYMBOLSET "/opt/geodev/mapserver/symbols.sym"
+
+WEB
+  IMAGEPATH "/var/www/tmp/"
+  IMAGEURL "/tmp/"  
+  MAXSCALE 200000000
+  MINSCALE 500000
+  METADATA
+    "wms_title" "north_america"
+    "wms_onlineresource" "http://cabrillo.nceas.ucsb.edu:8080/cgi-bin/mapserv?map=/opt/geodev/mapserver/na.map"
+    "wms_srs" "EPSG:4269 EPSG:4326"
+  END
+  METADATA
+    "mwc_title" "North America"
+    "mwc_link"  "http://cabrillo.nceas.ucsb.edu:8080"
+    "mwc_bgcolor"   "#669999"
+    "mwc_textcolor" "#000000"
+    "mwc_linkcolor" "#000000"
+  END
+END
+
+SCALEBAR
+  IMAGECOLOR 255 255 255
+  COLOR 0 0 0
+  OUTLINECOLOR 255 255 255
+  LABEL
+    COLOR 0 0 0
+    SIZE medium
+  END
+  STYLE 1
+  SIZE 188 6
+  UNITS MILES
+  INTERVALS 4
+  STATUS ON 
+  TRANSPARENT TRUE
+END
+
+REFERENCE
+  IMAGE na_refmap.png
+  EXTENT -4697182.5 -4234596 4310589.5 4773176
+  SIZE 120 120
+  STATUS on
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END
+
+LEGEND
+  KEYSIZE 18 12
+  IMAGECOLOR 255 255 255
+  LABEL
+    TYPE BITMAP
+    SIZE MEDIUM
+    COLOR 0 0 0
+  END
+  STATUS ON
+END
+
+LAYER
+  NAME IGBP 
+  TYPE raster
+  STATUS ON 
+  #TRANSPARENCY 50
+  DATA /opt/geodev/mapsets/laea_na/PERMANENT/cellhd/igbp
+  PROJECTION
+    "proj=laea"
+    "lat_0=45"
+    "lon_0=-100"
+    "datum=WGS84"
+  END
+END
+
+LAYER
+  NAME Hillshade 
+  TYPE raster
+  STATUS OFF
+  TRANSPARENCY 70
+  DATA /opt/geodev/mapsets/laea_na/PERMANENT/cellhd/shade
+  PROJECTION
+    "proj=laea"
+    "lat_0=45"
+    "lon_0=-100"
+    "datum=WGS84"
+  END
+END
+
+LAYER
+  NAME SRTM_Tiles
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  CONNECTION "host=localhost dbname=gisdata user=perry"
+  DATA "the_geom from srtmindex"
+  PROJECTION
+    "init=epsg:4326"
+  END
+  LABELITEM "location"
+  LABELMAXSCALE 12000000
+  CLASS
+    NAME "SRTM Tiles"
+    STYLE
+      COLOR -1 -1 -1
+      OUTLINECOLOR 150 150 150 
+    END
+    LABEL
+      COLOR 200 200 200
+      SHADOWCOLOR 0 0 0
+      PARTIALS FALSE
+      MINFEATURESIZE 10
+      FONT "Arial"
+      TYPE truetype
+      POSITION CC 
+      SIZE 8 
+    END
+  END
+END
+
+END

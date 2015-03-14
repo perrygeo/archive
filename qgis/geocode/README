@@ -1,0 +1,12 @@
+This geocoding plugin for QGIS was written in the new python bindings.
+
+The geocoding is provided by a web service (Yahoo by default) and the abstraction code for interacting with the geocoding services is provided by geopy (included in source tree ... http://exogen.case.edu/projects/geopy/ ). Other geocoders can be used with this library but Yahoo is the only one I can get to work reliably at this point.
+
+You'll need to get a Yahoo API key if you're going to use this legit. 
+
+There are many holes/bugs/missing features that need to be worked on. Consider this an alpha release.
+
+The code was mostly an experiment to learn the qgis python bindings and pyqt4 but it turned out to be a useful tool ;-) Enjoy,
+
+Matthew T. Perry
+perrygeo at gmail.com

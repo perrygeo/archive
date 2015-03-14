@@ -1,0 +1,102 @@
+NAME North_America 
+STATUS ON
+SIZE 1200 600 
+EXTENT -180 -90 180 90
+IMAGECOLOR 255 255 255
+IMAGETYPE JPEG 
+IMAGEQUALITY 90
+OUTPUTFORMAT
+  NAME JPEG
+  DRIVER "GD/JPEG"
+  MIMETYPE "image/jpeg"
+  IMAGEMODE RGB
+  EXTENSION "jpg"
+END
+
+SHAPEPATH "./sample_data"
+UNITS dd
+
+FONTSET "./fonts/font.list"
+SYMBOLSET "./symbols/symbols.sym"
+
+PROJECTION
+  "init=epsg:4326"
+END
+
+WEB
+  IMAGEPATH "/var/www/tmp/"
+  IMAGEURL "/tmp/"  
+  MAXSCALE 200000000
+  MINSCALE 500000
+  EMPTY "/queryempty.html" #URL not file path
+  METADATA
+    "wms_title" "north_america"
+    "wms_onlineresource" "http://cabrillo.nceas.ucsb.edu:8080/cgi-bin/mapserv?map=/opt/geodev/mapserver/na.map"
+    "wms_srs" "EPSG:4269 EPSG:4326"
+  END
+  METADATA
+    "mwc_title" "North America"
+    "mwc_link"  "http://cabrillo.nceas.ucsb.edu:8080"
+    "mwc_bgcolor"   "#669999"
+    "mwc_textcolor" "#000000"
+    "mwc_linkcolor" "#000000"
+  END
+END
+
+SCALEBAR
+  IMAGECOLOR 222 220 205 
+  COLOR 0 0 0
+  OUTLINECOLOR 255 255 255
+  LABEL
+    COLOR 0 0 0
+    SIZE medium
+  END
+  STYLE 1
+  SIZE 188 6
+  UNITS MILES
+  INTERVALS 4
+  STATUS ON 
+  TRANSPARENT TRUE
+END
+
+LEGEND
+  KEYSIZE 18 12
+  IMAGECOLOR 222 220 205
+  LABEL
+    TYPE BITMAP
+    SIZE MEDIUM
+    COLOR 0 0 0
+  END
+  STATUS ON
+END
+
+LAYER
+  NAME "countries"
+  TYPE POLYGON
+  STATUS ON 
+  DATA "countries_simpl_pop"
+  LABELITEM "name"
+  # TEMPLATE
+  TRANSPARENCY 50
+  CLASS
+    STYLE
+      SYMBOL 'polygon_solid'
+      COLOR 205 245 205 
+      OUTLINECOLOR 0 0 0 
+    END
+    LABEL
+      COLOR 200 200 200
+      SHADOWCOLOR 0 0 0
+      PARTIALS FALSE
+      MINFEATURESIZE 10
+      FONT "Arial"
+      TYPE truetype
+      ANTIALIAS TRUE
+      POSITION CC
+      WRAP " "
+      SIZE 8 
+    END
+  END
+END
+
+END

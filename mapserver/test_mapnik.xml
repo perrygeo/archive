@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map>
+<Map bgcolor="#89bac6" srs="+proj=latlong +datum=WGS84">
+
+  <Style name="countries_style">
+    <Rule>
+      <MaxScaleDenominator>250000000</MaxScaleDenominator>
+      <MinScaleDenominator>600000</MinScaleDenominator>
+      <PolygonSymbolizer>
+        <CssParameter name="fill">#bac689</CssParameter>
+      </PolygonSymbolizer>
+      <LineSymbolizer>
+        <CssParameter name="stroke">#333333</CssParameter>
+        <CssParameter name="stroke-width">1</CssParameter>
+        <CssParameter name="stroke-linejoin">round</CssParameter>
+        <CssParameter name="stroke-linecap">round</CssParameter>
+      </LineSymbolizer>
+    </Rule>
+  </Style>
+
+  <Layer name="countries" status="on">
+    <StyleName>countries_style</StyleName>
+    <Datasource>
+      <Parameter name="type">shape</Parameter>
+      <Parameter name="file">/home/perry/src/perrygeo/mapserver/sample_data/countries_simpl_pop</Parameter>
+    </Datasource>
+  </Layer>
+
+</Map>
